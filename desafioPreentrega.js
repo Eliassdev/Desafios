@@ -1,6 +1,11 @@
+/*La entrada del usuario y la bienvenida */ 
 let usuario = prompt("Bienvenido/a a nuestra tienda online. Ingrese su nombre");
 console.log("Bienvenido/a a nuestra tienda Sr/a : ", usuario)
 console.log("A continuacion la lista de nuestros productos :")
+
+
+//El objeto con las propiedades :
+
 class Producto{
         constructor(nombre, precio, talle, color, codigo){
             this.nombre = nombre;
@@ -11,7 +16,8 @@ class Producto{
         }
 
 };
-let lista_productos = []
+//El arreglo del objeto
+let lista_productos = [];
 lista_productos.push(new Producto("Falda", 2000, " L ", " blanco ", 0));
 lista_productos.push(new Producto("Saco ", 1500, " M ", " rojo ", 1));
 lista_productos.push(new Producto("Jean", 4000, " M ", " azul ", 2));
@@ -22,18 +28,28 @@ lista_productos.push(new Producto("Gorra", 3000, " M ", " negro ", 5));
 for(let Producto of lista_productos ){
     console.log("Nombre : ", Producto.nombre , "Precio : ", Producto.precio , "Talle : ", Producto.talle , "Color : ", Producto.color ,  "Codigo : " , Producto.codigo);
 }
+let desea_algo_mas = "S"
+let carrito = [];
+while(desea_algo_mas == "S" ){
+    let codigo_de_producto = prompt("Seleccione el codigo del producto que desea llevar")
+    console.log("El producto selecionado es :" , lista_productos[codigo_de_producto] )
+    carrito.push(lista_productos[codigo_de_producto]);
+    
+
+    desea_algo_mas = prompt("Desea algo mas ? Responda S/N");
+ 
+}
+
+console.log("Los productos seleccionados son: ");
+carrito.forEach((element)=>{
+    console.log(element);
+});
 
 
-let venta = prompt("Que producto desea llevar? Ingrese el codigo del producto...");
-if(venta < lista_productos.length){
-    console.log("El producto seleccionado es: ", lista_productos[venta]);
-}
-else{
-    console.log("No se puede realizar esta operacion. Ingrese el codigo del Producto")
-}
+let precio_producto = carrito.reduce((acc, el) => acc + el.precio, 0)
+console.log("El precio total es : " , precio_producto);
 
 let metodo_pago = prompt("Ingrese el metodo de pago : A (efectivo con 10% de descuento) o B (tarjeta con 15% de recargo)");
-let precio_producto = lista_productos[venta].precio;
 function precio_total(){
 
     if((metodo_pago == "A") || (metodo_pago == "a") ){
@@ -51,12 +67,12 @@ function precio_total(){
     }
 }
 console.log(precio_total());
-let desicion = prompt("Desea comprarlo ?");
-if((desicion == "si") || (desicion == "No")){
+let desicion = prompt("Desea comprarlo ? Responda S/N");
+if((desicion == "S")){
     console.log("Perfecto que lo disfrutes, gracias por su apoyo. Hasta pronto")
     
 }
-else if((desicion == "no") || (desicion == "No")){
+else if((desicion == "N")){
     console.log("No hay problema, lo esperamos para la proxima.")
 }
 else{
